@@ -41,3 +41,10 @@ ordering, use a coordinating authority instead.
 
 The library takes a `clock` callable in its constructor so tests can inject a
 fake. Never assert on wall-clock time in your own tests; pass a fake clock.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
